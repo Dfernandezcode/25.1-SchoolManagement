@@ -70,3 +70,12 @@ TSConfig mods to turn on:
 
     "include" : ["src/**/*ts", "__tests__/**/*.ts", "__tests__/*.ts"],
     "exclude" : ["dist/*"]
+
+---
+
+Scripts to use:
+
+- Start = use to start localhost server
+- Start:pro = use to run build and start production server. (! DON'T FORGET TO ADD "npm run build")
+
+  "start": "ts-node-dev --inspect -- ./src/index.ts", "start:pro": "node ./dist/src/index.js",

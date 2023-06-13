@@ -4,7 +4,9 @@
   "description": "Node bootcamp - pre-release.",
   "main": "src/index.ts",
   "scripts": {
+    "lint": "eslint .",
     "start": "ts-node-dev --inspect -- ./src/index.ts",
+    "start:pro": "npm run build && node ./dist/src/index.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
