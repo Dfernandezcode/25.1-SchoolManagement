@@ -27,7 +27,10 @@ Dependencies installed: (use --save-dev to add to devDependencies)
 - @types cors : npm i @types/cors --save-dev (!allows connection of API from distinct URL environments)
 
 - Mongoose : npm i mongoose
-- @types Mongoose\* : npm i @types/mongoose --save-dev (!NOTE - Mongoose types depreciated?)
+- @types Mongoose\* : npm i @types/mongoose --save-dev (!NOTE - Mongoose types depreciated?).
+
+- Husky : npx husky-init && npm install (install with #bash)
+- add npm run precommit to run lint and build.
 
   ***
 
