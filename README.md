@@ -10,7 +10,7 @@ Dependencies installed: (use --save-dev to add to devDependencies)
 
         - Package name.
         - version 1.0.0
-        - descripition 1.0.0
+        - description 1.0.0
 
 - Express : npm i express
 - @types Express : npm i @types/express --save-dev
