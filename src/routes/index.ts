@@ -1,32 +1,40 @@
 import express, { type NextFunction, type Response, type Request, type ErrorRequestHandler } from "express";
-
+import { mongoConnect } from "../domain/repositories/mongo-repository";
+import { userRouter } from "./user.routes";
+import { classroomRouter } from "./classroom.routes";
+import { subjectRouter } from "./subject.routes";
 export const configureRoutes = (app: any): any => {
-  // Routes
+  // Rutas
   const router = express.Router();
+  // Middleware de conexión a Mongo
+  app.use(async (req: Request, res: Response, next: NextFunction) => {
+    await mongoConnect();
+    next();
+  });
   router.get("/", (req: Request, res: Response) => {
     res.send(`
-      <h3>Our API Homepage.</h3>
+      <h3>Esta es la RAIZ de nuestra API.</h3>
     `);
   });
   router.get("*", (req: Request, res: Response) => {
-    // shows error message if page other than stated is requested.
-    res.status(404).send("Sorry :( 404 - Page not found.");
+    res.status(404).send("Lo sentimos :( No hemos encontrado la página solicitada.");
   });
-
-  // Routes to be used:
+  // Usamos las rutas
+  // Rutas
   app.use("/public", express.static("public"));
-  app.use("/", router); // "router added as generic router"
+  app.use("/user", userRouter);
+  app.use("/classroom", classroomRouter);
+  app.use("/subject", subjectRouter);
+  app.use("/", router);
 
-  // Error-handling Middleware
+  // Middleware de gestión de errores
   app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
-    console.log("*** START OF ERROR ***");
-    console.log(`REQUEST FAILED: ${req.method} of url: ${req.originalUrl}`);
+    console.log("*** INICIO DE ERROR ***");
+    console.log(`PETICIÓN FALLIDA: ${req.method} a la url ${req.originalUrl}`);
     console.log(err);
-    console.log("*** END OF ERROR ***");
-
-    // TIP: Rremove "type" requirement from a variable
+    console.log("*** FIN DE ERROR ***");
+    // Truco para quitar el tipo a una variable
     const errorAsAny: any = err as unknown as any;
-
     if (err?.name === "ValidationError") {
       res.status(400).json(err);
     } else if (errorAsAny.errmsg && errorAsAny.errmsg?.indexOf("duplicate key") !== -1) {
@@ -37,24 +45,4 @@ export const configureRoutes = (app: any): any => {
       res.status(500).json(err);
     }
   });
-
-  return app;
 };
-
-/* SWAGGER AND MONGO MIDDLEWARE (to be added if needed)
-
-import swaggerUiExpress from "swagger-ui-express";
-import swaggerJsDoc from "swagger-jsdoc";
-import { swaggerOptions } from "../swagger-options";
-import { mongoConnect } from "../domain/repositories/mongo-repository";
-
-    /  Swagger
-  const specs = swaggerJsDoc(swaggerOptions);
-  app.use("/api-docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
-
-    / Middleware de conexión a Mongo
-  app.use(async (req: Request, res: Response, next: NextFunction) => {
-    await mongoConnect();
-    next();
-  });
-*/

@@ -32,7 +32,31 @@ Dependencies installed: (use --save-dev to add to devDependencies)
 - Husky : npx husky-init && npm install (install with #bash)
 - add npm run precommit to run lint and build.
 
-  ***
+// OTHER INSTALLS:
+
+- Validator: npm i validator
+- Bcrypt: npm i bcrypt
+- @types bcrypt: npm i @types/bcrypt --save-dev
+- JSON Web Tokens: npm i jsonwebtoken
+- @types JSON Web Tokens: npm i @types/jsonwebtoken --save-dev
+
+// TESTS:
+
+- JEST : npm i jest --save-dev
+- @types JEST : npm i @types/jest --save-dev
+- TS JEST : npm i ts-jest --save-dev
+
+- npm install --save-dev jest typescript ts-jest @types/jest
+- npx ts-jest config:init
+
+- SUPERTEST : npm i supertest --save-dev
+- @types SUPERTEST: npm i @types/supertest --save-dev
+
+- CROSSENV - npm i cross-env --save-dev // TESTING ONLY
+- Execute with:
+        "test": "cross-env DB_NAME=SCHOOL-MANAGER-TESTING jest --silent"
+
+---
 
 - ESLint : npm init @eslint/config
 - Prettier : .prettierrc
